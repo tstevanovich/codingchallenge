@@ -1,0 +1,55 @@
+<section class="p-3">
+  <h1>Coding Challenge</h1>
+
+  <form
+    novalidate
+    [formGroup]="equipmentForm"
+    #formDirective="ngForm"
+    (ngSubmit)="onSubmit(formDirective)">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Model ID</mat-label>
+        <input type="text" matInput placeholder="Enter Model ID" formControlName="modelId" />
+        <mat-error *ngIf="f['modelId'].errors && f['modelId'].errors['required']">
+          Model ID is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="w-25" appearance="outline">
+        <mat-label>Year</mat-label>
+        <input type="text" matInput placeholder="Enter Year" formControlName="year" />
+        <mat-error *ngIf="f['year'].errors && f['year'].errors['required']">
+          Year is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mt-3">
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="equipmentForm.invalid"
+        class="mx-1">
+        Submit
+      </button>
+      <button
+        mat-raised-button
+        type="button"
+        color="accent"
+        (click)="discard(formDirective)"
+        class="mx-1">
+        Clear
+      </button>
+    </div>
+    <div *ngIf="loading" class="mt-5">Sending request...</div>
+    <div *ngIf="!loading && error" class="mt-5">{{ errorMessage }}</div>
+    <div *ngIf="success && calculatedValue !== 0" class="mt-5">
+      <strong>Calculated Value:</strong>
+      {{ calculatedValue }}
+    </div>
+    <div *ngIf="success && calculatedValue === 0" class="mt-5">
+      <strong>No matches found</strong>
+    </div>
+  </form>
+</section>
