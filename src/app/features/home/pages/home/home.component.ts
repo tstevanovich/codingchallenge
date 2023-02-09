@@ -14,6 +14,9 @@ export class HomeComponent {
   errorMessage: string = '';
   success: boolean = false;
   calculatedValue: number = 0;
+  marketValue: number = 0;
+  auctionValue: number = 0;
+
   equipmentRequest: any = {
     modelId: '',
     year: ''
@@ -51,12 +54,16 @@ export class HomeComponent {
         next: (val) => {
           this.ELEMENT_DATA = val;
           this.calculatedValue = 0;
+          console.log(this.ELEMENT_DATA);
           this.ELEMENT_DATA.forEach((element: any) => {
             if (element.modelId === this.equipmentRequest.modelId) {
               const selectedElement = element;
+              const cost = selectedElement.saleDetails.cost;
               selectedElement.schedule.years.forEach((item: any) => {
                 if (this.equipmentRequest.year == item.year) {
                   this.calculatedValue = item.marketRatio * item.auctionRatio;
+                  this.marketValue = cost * item.marketRatio;
+                  this.auctionValue = cost * item.auctionRatio;
                 }
               });
             }

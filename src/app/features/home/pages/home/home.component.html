@@ -45,8 +45,11 @@
     <div *ngIf="loading" class="mt-5">Sending request...</div>
     <div *ngIf="!loading && error" class="mt-5">{{ errorMessage }}</div>
     <div *ngIf="success && calculatedValue !== 0" class="mt-5">
-      <strong>Calculated Value:</strong>
-      {{ calculatedValue }}
+      <strong>Market Value:</strong>
+      {{ marketValue | currency }}
+      <br />
+      <strong>Auction Value:</strong>
+      {{ auctionValue | currency }}
     </div>
     <div *ngIf="success && calculatedValue === 0" class="mt-5">
       <strong>No matches found</strong>
